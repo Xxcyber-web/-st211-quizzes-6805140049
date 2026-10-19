@@ -1,19 +1,10 @@
 import pytest
 
-
-@pytest.mark.parametrize(
-    "number, expected",
-    [
-        (2, 4),
-        (3, 9),
-        (4, 16),
-        pytest.param(
-            5,
-            20,
-            marks=pytest.mark.xfail,
-            id="expected-failure",
-        ),
-    ],
-)
-def test_square(number, expected):
-    assert number * number == expected
+@pytest.mark.parametrize("value,expected", [
+    pytest.param(2, 4, id="two_squared"),
+    pytest.param(3, 9, id="three_squared"),
+    pytest.param(5, 20, id="known_bug",
+                 marks=pytest.mark.xfail), # 5**2=25 not 20 -- bug not fixed yet
+])
+def test_square(value, expected):
+    assert value ** 2 == expected
