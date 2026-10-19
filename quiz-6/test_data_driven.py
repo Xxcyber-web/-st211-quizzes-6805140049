@@ -1,19 +1,11 @@
 import json
-from pathlib import Path
-
 import pytest
-from mathutils import factorial
 
-with open(
-    Path(__file__).with_name("test_cases.json"),
-    encoding="utf-8"
-) as file:
-    test_cases = json.load(file)
+def load_cases():
+    with open("test_cases.json") as f:
+        data = json.load(f)  # read the whole file
+    return [(case["input"], case["expected"]) for case in data]
 
-
-@pytest.mark.parametrize("case", test_cases)
-def test_factorial_from_json(case):
-    number = case["number"]
-    expected = case["expected"]
-
-    assert factorial(number) == expected
+@pytest.mark.parametrize("text,expected", load_cases())  # loader runs at collection
+def test_uppercase(text, expected):
+    assert text.upper() == expected
