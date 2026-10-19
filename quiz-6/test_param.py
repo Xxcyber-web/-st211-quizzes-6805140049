@@ -1,9 +1,10 @@
 import pytest
+from mathutils import is_even
 
-@pytest.fixture(params=["sqlite", "postgres", "mysql"])
-def database_type(request):      # 'request' is a special built-in pytest object
-    return request.param         # request.param holds the current value from params=
+@pytest.mark.parametrize("number", [2, 4, 6, 8, 100])
+def test_even_numbers(number):
+    assert is_even(number) is True    # every value in the list must pass
 
-def test_database_connection(database_type):
-    print(f"\n Testing with {database_type}")
-    assert database_type in ["sqlite", "postgres", "mysql"]
+@pytest.mark.parametrize("number", [1, 3, 5, 7, 99])
+def test_odd_numbers(number):
+    assert is_even(number) is False   # odd numbers must return False
