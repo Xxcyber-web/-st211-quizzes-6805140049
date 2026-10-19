@@ -1,5 +1,5 @@
-username,password,expected
-alice,pass123,True
-bob,hello456,True
-alice,wrongpass,False
-unknown,pass123,False
+username,password,valid
+admin,admin123,True
+user,pass456,True
+hacker,,False
+,nopassword,False
