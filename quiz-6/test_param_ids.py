@@ -1,15 +1,10 @@
 import pytest
-from mathutils import factorial
+from discount import apply_discount
 
-
-@pytest.mark.parametrize(
-    "n, expected",
-    [
-        pytest.param(0, 1, id="zero"),
-        pytest.param(1, 1, id="one"),
-        pytest.param(3, 6, id="three"),
-        pytest.param(5, 120, id="five"),
-    ],
-)
-def test_factorial_with_ids(n, expected):
-    assert factorial(n) == expected
+@pytest.mark.parametrize("price,percent,expected", [
+    pytest.param(100, 0, 100, id="no_discount"),
+    pytest.param(100, 50, 50, id="half_off"),
+    pytest.param(100,100,   0, id="free"),
+])
+def test_discount(price, percent, expected):
+    assert apply_discount(price, percent) == expected
