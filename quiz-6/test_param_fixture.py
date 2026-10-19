@@ -1,10 +1,9 @@
 import pytest
 
+@pytest.fixture(params=["sqlite", "postgres", "mysql"])
+def database_type(request):      # 'request' is a special built-in pytest object
+    return request.param         # request.param holds the current value from params=
 
-@pytest.fixture(params=[10, 20, 30])
-def number(request):
-    return request.param
-
-
-def test_number_is_positive(number):
-    assert number > 0
+def test_database_connection(database_type):
+    print(f"\n Testing with {database_type}")
+    assert database_type in ["sqlite", "postgres", "mysql"]
