@@ -1,7 +1,2 @@
-def validate_login(username, password):
-    valid_users = {
-        "alice": "pass123",
-        "bob": "hello456",
-    }
-
-    return valid_users.get(username) == password
+def is_valid_login(username, password):
+    return bool(username) and bool(password)
